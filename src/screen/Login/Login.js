@@ -15,7 +15,7 @@ const Login = () => {
 
     const [formlogin, setFormlogin] = useState({
         email: 'hoangphuc2004lk@gmail.com',
-        password: 'pas12qQ!123'
+        password: '123456qQ!'
     })
 
     const luu = async() => {

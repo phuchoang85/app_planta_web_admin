@@ -21,14 +21,14 @@ const RenderProduct = (props) => {
         <tr>
             <td className="center"><img style={{ width: 20, height: 20 }} src={isExists ? 'https://cdn-icons-png.flaticon.com/512/5610/5610944.png' :
                 'https://cdn-icons-png.flaticon.com/512/399/399274.png'} /></td>
-            <td className="center"><img src={item.imgs[0].img} alt='đang load ảnh' style={{ width: 80, height: 50, marginRight: 20 }} /></td>
-            <td className="center" ><h6>{item.name}</h6></td>
-            <td className="center" > <h6>{item.price}</h6></td>
-            <td className="center" ><h6>{item.quantity}</h6></td>
-            <td className="center" ><h6>{item.catalog.title}</h6></td>
+            <td className="center"><img src={item?.imgs[0]?.img} alt='đang load ảnh' style={{ width: 80, height: 50, marginRight: 20 }} /></td>
+            <td className="center" ><h6>{item?.name}</h6></td>
+            <td className="center" > <h6>{item?.price}</h6></td>
+            <td className="center" ><h6>{item?.quantity}</h6></td>
+            <td className="center" ><h6>{item?.catalog?.title}</h6></td>
             <td className="center" >
                 <div style={{display: 'flex' , flexDirection: 'column'}}>
-                    {item.prototy.map((ele,index) => {
+                    {item?.prototy?.map((ele,index) => {
                         return (
                             <h7 key={index}>{ele.title}</h7>
                         )

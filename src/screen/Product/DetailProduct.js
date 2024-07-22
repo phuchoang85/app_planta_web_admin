@@ -23,7 +23,7 @@ const DetailProduct = (props) => {
                 className="popup-content containerInsidePopup">
                     <p>Image</p>
                     <div className='containerAllIamge'>
-                        {item.imgs.map(ele =>{
+                        {item.imgs?.map(ele =>{
                             return (<div key={ele._id} className='image-container'>
                                 <img style={{width: '100%', height: '100%'}}  src={ele.img}/>
                             </div>)

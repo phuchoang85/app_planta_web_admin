@@ -8,17 +8,17 @@ const InsertAndUpdate = (props) => {
   const [showaddPrototy, setshowaddPrototy] = useState(false);
   const [form, setform] = useState({
     title: formUpdate?.title || '',
-    prototy: formUpdate?.prototy.length > 0 ? formUpdate.properties : [],
+    prototy: formUpdate?.prototy?.length > 0 ? formUpdate?.properties : [],
     titlePrototy: ''
   })
 
-  console.log(form)
+  console.log(formUpdate)
 
   const submit =async () => {
-    if (formUpdate) {
+    if (formUpdate?._id) {
       await update()
     } else {
-     await  addCategory()
+      await  addCategory()
     }
   }
 
