@@ -17,10 +17,10 @@ const Insert = (props) => {
         descripe: formUpdate.descripe || '',
         catalog: formUpdate.catalog ? formUpdate.catalog._id : '', // Giả sử giá trị của catalog là một chuỗi, nếu không, hãy thay đổi logic này
         prototy: formUpdate.prototy ? formUpdate.prototy.map(ele => ele._id) : [],
-        size: formUpdate.size || '',
+        size: formUpdate.size || 'l',
         manUpdated: 'phuc',
         origin: formUpdate.origin || '',
-        lever: formUpdate.lever || ''
+        lever: formUpdate.lever || '4/5'
     })
 
     const handleTxt = (e) => {

@@ -12,8 +12,6 @@ const InsertAndUpdate = (props) => {
     titlePrototy: ''
   })
 
-  console.log(formUpdate)
-
   const submit =async () => {
     if (formUpdate?._id) {
       await update()
