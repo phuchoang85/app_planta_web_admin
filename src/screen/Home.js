@@ -7,23 +7,55 @@ import UseApi from '../api/UseApi';
 const Home = () => {
   
   const monthlyProductCounts = Array.from({ length: 12 }, () => 0);
+  const monthlyProductsBeingDelivered = Array.from({ length: 12 }, () => 0); 
+  const monthlyProductsWaitingConfirm = Array.from({ length: 12 }, () => 0); 
+  const monthlyProductsCancled = Array.from({ length: 12 }, () => 0); 
   const monthlyUserRegister = Array.from({ length: 12 }, () => 0);
-  
+  const monthlyUserWaittingRegister = Array.from({ length: 12 }, () => 0);
+
   const [isLoading, setisLoading] = useState(true)
   const [data, setdata] = useState({
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [{
-      label: 'Thống kê bán hàng',
+      label: 'Đơn đã giao thành công',
       data: monthlyProductCounts,
-      borderWidth: 1
+      borderWidth: 1,
+      backgroundColor: 'green' ,
+      borderColor: 'green',
+    },
+    {
+      label: 'Đơn đang được giao',
+      data: monthlyProductsBeingDelivered,
+      borderWidth: 1,
+      backgroundColor: 'purple' ,
+      borderColor: 'purple',
+    },
+    {
+      label: 'Đơn đang chờ xác nhận',
+      data: monthlyProductsWaitingConfirm,
+      borderWidth: 1,
+      backgroundColor: 'yellow' ,
+      borderColor: 'yellow',
+    },
+    {
+      label: 'Đơn đã hủy',
+      data: monthlyProductsCancled,
+      borderWidth: 1,
+      backgroundColor: 'red' ,
+      borderColor: 'red',
     }]
   })
 
   const [dataUser, setdataUser] = useState({
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [{
-      label: 'Thống kê số lượt đang kí',
+      label: 'Số lượt người đăng kí ',
       data: monthlyUserRegister,
+      borderWidth: 1
+    },
+    {
+      label: 'Số lượt người chưa xác nhận đăng kí ',
+      data: monthlyUserWaittingRegister,
       borderWidth: 1
     }]
   })
@@ -47,19 +79,38 @@ const Home = () => {
     mang?.forEach(order => {
       const createdAt = new Date(Number(order.createdAt));
       const month = createdAt.getMonth();
-      monthlyProductCounts[month] += order.totalPrice;
+      if(order.status === 1){
+        monthlyProductsWaitingConfirm[month] += order.totalPrice;
+      }else if(order.status === 2){
+        monthlyProductsBeingDelivered[month] += order.totalPrice;
+      }
+      else if(order.status === 3){
+        monthlyProductCounts[month] += order.totalPrice;
+      }else{
+        monthlyProductsCancled[month] += order.totalPrice;
+      }
+    
+
       const newdata= {...data};
       newdata.datasets[0].data = monthlyProductCounts;
       setdata(newdata);
-      setisLoading(false)
     });
   }
 
-  const xulyManguser = (mang) => {
-    mang?.forEach(user => {
+  const xulyManguser =  (mang) => {
+     mang?.forEach(user => {
       const createdAt = new Date(Number(user.createdAt));
       const month = createdAt.getMonth();
-      monthlyUserRegister[month] += 1;
+      if(user.role == 2){
+        
+      }
+      else if(user.isVerification == 1){
+        monthlyUserWaittingRegister[month] += 1;
+      }
+      else{
+        monthlyUserRegister[month] += 1;
+      }
+
       const newdata= {...dataUser};
       newdata.datasets[0].data = monthlyUserRegister;
       setdataUser(newdata);
@@ -67,8 +118,8 @@ const Home = () => {
   }
 
   useEffect(() => {
-    getAllUser();
-    getAllOrrder();
+    setisLoading(true);
+    Promise.all([getAllUser(), getAllOrrder()]).then(() => setisLoading(false));
   },[])
   
   if(isLoading){
