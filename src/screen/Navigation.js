@@ -5,6 +5,7 @@ import Category from './Category/Category';
 import Order from '../screen/order/Order';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import VerifiEmail from './VerifiEmail';
 const Navigation = () => {
     const [select, setselect] = useState('Home');
 
@@ -34,7 +35,7 @@ const Navigation = () => {
     }
 
     return (
-        <div className="container-fluid" style={{height: '100vh'}}>
+        <div className="container-fluid">
             <div className="row" style={{ justifyContent: 'space-between' }}>
                 <div className="col-md-2">
                     <div className="d-flex flex-column justify-content-between" style={{height: '100vh'}}>

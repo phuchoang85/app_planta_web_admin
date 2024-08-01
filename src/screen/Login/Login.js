@@ -22,6 +22,7 @@ const Login = () => {
         const result = await UseApi.login(formlogin);
         if(result.status){
             const userInfo = { ...formlogin }
+            console.log(result.data)
             saveUserInfoToLocalStorage(result.data);
             window.location.reload();
         }else{

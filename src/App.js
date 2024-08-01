@@ -54,6 +54,8 @@ function App() {
     <div>
       <Router>
         <Routes>
+          
+        <Route path='/verifiEmail' element={<VerifiEmail />} />
           <Route element={<PublicRoute />}>
             <Route path='/login' element={<Login />} />
             <Route path='/verifiEmail' element={<VerifiEmail />} />

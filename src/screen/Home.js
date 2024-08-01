@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Line } from 'react-chartjs-2';
+import { Line,Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import OrderApi from '../api/OrderApi';
+import UseApi from '../api/UseApi';
 
 const Home = () => {
   
   const monthlyProductCounts = Array.from({ length: 12 }, () => 0);
+  const monthlyUserRegister = Array.from({ length: 12 }, () => 0);
   
   const [isLoading, setisLoading] = useState(true)
   const [data, setdata] = useState({
@@ -13,6 +15,15 @@ const Home = () => {
     datasets: [{
       label: 'Thống kê bán hàng',
       data: monthlyProductCounts,
+      borderWidth: 1
+    }]
+  })
+
+  const [dataUser, setdataUser] = useState({
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    datasets: [{
+      label: 'Thống kê số lượt đang kí',
+      data: monthlyUserRegister,
       borderWidth: 1
     }]
   })
@@ -25,8 +36,15 @@ const Home = () => {
     }
   }
 
+  const getAllUser = async () => {
+    const result = await UseApi.getAllUser();
+    if (result.status && result.data.length > 0) {
+      xulyManguser(result.data);
+    }
+  }
+
   const xulyMang = (mang) => {
-    mang.forEach(order => {
+    mang?.forEach(order => {
       const createdAt = new Date(Number(order.createdAt));
       const month = createdAt.getMonth();
       monthlyProductCounts[month] += order.totalPrice;
@@ -37,7 +55,19 @@ const Home = () => {
     });
   }
 
+  const xulyManguser = (mang) => {
+    mang?.forEach(user => {
+      const createdAt = new Date(Number(user.createdAt));
+      const month = createdAt.getMonth();
+      monthlyUserRegister[month] += 1;
+      const newdata= {...dataUser};
+      newdata.datasets[0].data = monthlyUserRegister;
+      setdataUser(newdata);
+    });
+  }
+
   useEffect(() => {
+    getAllUser();
     getAllOrrder();
   },[])
   
@@ -54,6 +84,7 @@ const Home = () => {
     <div>
       <h1>Home</h1>
       <Line data={data} />
+      <Bar data={dataUser} />
     </div>
   );
 };

@@ -11,6 +11,7 @@ const Order = () => {
   const getAllOrrder = async (page) => {
     const result = await OrderApi.getAllOrder(6, page);
     if (result.status && result.data.length > 0) {
+        setpage(page)
         setorder(result.data)
     }
   }
@@ -46,7 +47,7 @@ const Order = () => {
       </Table>
 
       <div className='chuyentrang'>
-        <Button onClick={() => { getAllOrrder(page - 1) }}>trái</Button>
+        <Button onClick={() => { if(page >1) getAllOrrder(page - 1) }}>trái</Button>
         <h4 style={{ marginLeft: 20, marginRight: 20 }}>{page}</h4>
         <Button onClick={() => { getAllOrrder(page + 1) }}>phải</Button>
       </div>

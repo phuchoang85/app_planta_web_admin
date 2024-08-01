@@ -32,14 +32,12 @@ const DetailProduct = (props) => {
                 <h3>Name: {item.name}</h3>
                 <h3>Price: {item.price}</h3>
                 <h3>Quantity: {item.quantity}</h3>
-                <h3>Size: {item.size}</h3>
                 <h3>Origin: {item.origin}</h3>
                 <h3>Descripe: {item.descripe}</h3>
                 <h3>Prototy</h3>
                 {item.prototy.map(ele => {
                     return <h5 key={ele._id}> - {ele.title}</h5>
                 })}
-                <h3>Lever: {item.lever}</h3>
                 <h3>Catalog: {item.catalog.title}</h3>
                 <h3>Update At:{xulyngay(item.updateAt)}</h3>
                 <h3>Create At:{xulyngay(item.createdAt)}</h3>

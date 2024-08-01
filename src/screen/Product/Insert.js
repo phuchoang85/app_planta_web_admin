@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import {   Button } from "react-bootstrap";
 import CatalogApi from "../../api/CatalogApi";
 import './popup.css'
 import ProductApi from "../../api/ProductApi";
+import { Alert } from "bootstrap";
 
 const Insert = (props) => {
     const { setshowPopup, formUpdate, setformUpdate,reload } = props
     const [images, setImages] = useState(formUpdate.imgs ? formUpdate.imgs.map(ele => ele.img) : []);
     const [catalog, setcatalog] = useState([]);
     const [prototy, setprototy] = useState([]);
+    const manUpdated =  JSON.parse(localStorage.getItem('user'));
 
     const [form, setform] = useState({
         name: formUpdate.name || '', // Sử dụng toán tử OR để kiểm tra giá trị null hoặc undefined
@@ -17,10 +19,8 @@ const Insert = (props) => {
         descripe: formUpdate.descripe || '',
         catalog: formUpdate.catalog ? formUpdate.catalog._id : '', // Giả sử giá trị của catalog là một chuỗi, nếu không, hãy thay đổi logic này
         prototy: formUpdate.prototy ? formUpdate.prototy.map(ele => ele._id) : [],
-        size: formUpdate.size || 'l',
-        manUpdated: 'phuc',
+        manUpdated:  manUpdated.name,
         origin: formUpdate.origin || '',
-        lever: formUpdate.lever || '4/5'
     })
 
     const handleTxt = (e) => {
@@ -70,7 +70,7 @@ const Insert = (props) => {
             const result = await response.json();
             setImages([...images, result.secure_url]);
         } catch (error) {
-
+   
         }
     }
 
@@ -89,14 +89,14 @@ const Insert = (props) => {
             if (result.status) {
                 setshowPopup(false);
             } else {
-
+                window.alert("Không được bỏ trống")
             }
         } else {
             const result = await ProductApi.addProduct(body);
             if (result.status) {
                 setshowPopup(false);
             } else {
-
+                window.alert("Không được bỏ trống")
             }
         }
         setformUpdate({})
@@ -157,16 +157,7 @@ const Insert = (props) => {
                             name='descripe'
                             onChange={handleTxt} />
                     </div>
-                    <div className="mb-3">
-                        <label className="form-label">Lever:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter lever"
-                            value={form.lever}
-                            name='lever'
-                            onChange={handleTxt} />
-                    </div>
+        
                     <div className="mb-3">
                         <label className="form-label">Origin:</label>
                         <input
@@ -177,16 +168,7 @@ const Insert = (props) => {
                             name='origin'
                             onChange={handleTxt} />
                     </div>
-                    <div className="mb-3">
-                        <label className="form-label">Size:</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter description"
-                            value={form.size}
-                            name='size'
-                            onChange={handleTxt} />
-                    </div>
+
                     <div className="mb-3">
                         <label className="form-label">Catalog:</label>
                         <select className="form-select" value={form.catalog} name="catalog"

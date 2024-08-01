@@ -16,7 +16,17 @@ const UseApi = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+
+    getAllUser: async () => {
+        try {
+            const result = await fetch(`http://localhost:6868/getalluser`);
+            const response = await result.json();
+            return response;
+        } catch (error) {
+            console.log(error)
+        }
+    },
 }
 
 export default UseApi
