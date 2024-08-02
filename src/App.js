@@ -22,17 +22,17 @@ function App() {
     return null;
   }
   // lưu thông tin user vào localStorage
-  const saveUserInfoToLocalStorage = (userInfo) => {
-    if (!userInfo) {
-      localStorage.removeItem('user');
-      setUser(null);
-    } else {
-      localStorage.setItem('user', JSON.stringify(userInfo));
-      setUser(userInfo);
-    }
-  }
+  // const saveUserInfoToLocalStorage = (userInfo) => {
+  //   if (!userInfo) {
+  //     localStorage.removeItem('user');
+  //     setUser(null);
+  //   } else {
+  //     localStorage.setItem('user', JSON.stringify(userInfo));
+  //     setUser(userInfo);
+  //   }
+  // }
   // state user
-  const [user, setUser] = useState(getUserInfoFromLocalStorage());
+  const [user] = useState(getUserInfoFromLocalStorage());
 
   // các route không cần login
   const PublicRoute = () => {
