@@ -18,7 +18,7 @@ const VerifiEmail = () => {
 
         const getResult = async (token, email) => {
             try {
-                const result = await fetch(`http://localhost:6868/xac-thuc-email?email=${email}&token=${token}`);
+                const result = await fetch(`http://quockhanh020924.id.vn:6868/xac-thuc-email?email=${email}&token=${token}`);
                 setisLoading(false);
                 const response = await result.json()
                 if (response.status) {

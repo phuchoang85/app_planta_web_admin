@@ -10,7 +10,7 @@ const UseApi = {
                 body: JSON.stringify(body)
             }
 
-            const result = await fetch('http://localhost:6868/dang-nhap-admin', option);
+            const result = await fetch('http://quockhanh020924.id.vn:6868/dang-nhap-admin', option);
             const response = await result.json();
             return response;
         } catch (error) {
@@ -20,7 +20,7 @@ const UseApi = {
 
     getAllUser: async () => {
         try {
-            const result = await fetch(`http://localhost:6868/getalluser`);
+            const result = await fetch(`http://quockhanh020924.id.vn:6868/getalluser`);
             const response = await result.json();
             return response;
         } catch (error) {

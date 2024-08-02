@@ -1,7 +1,7 @@
 const ProductApi = {
     getAllproduct: async (limit, page) => {
         try {
-            const result = await fetch(`http://localhost:6868/getproductadmin?limit=${limit}&page=${page}`)
+            const result = await fetch(`http://quockhanh020924.id.vn:6868/getproductadmin?limit=${limit}&page=${page}`)
             const response = await result.json();
             return response
         } catch (error) {
@@ -17,7 +17,7 @@ const ProductApi = {
             body: JSON.stringify(body),
         }
         try {
-            const result = await fetch('http://localhost:6868/addproduct', data)
+            const result = await fetch('http://quockhanh020924.id.vn:6868/addproduct', data)
             const response = await result.json();
             return response
         } catch (error) {
@@ -26,7 +26,7 @@ const ProductApi = {
     },
     deleteProduct: async (id) => {
         try {
-            const result = await fetch('http://localhost:6868/deleteproduct?_id=' + id);
+            const result = await fetch('http://quockhanh020924.id.vn:6868/deleteproduct?_id=' + id);
             const response = await result.json();
             return response
         } catch (error) {
@@ -42,7 +42,7 @@ const ProductApi = {
                 },
                 body: JSON.stringify(body),
             }
-            const result = await fetch(`http://localhost:6868/updateproduct?_id=${id}`, data)
+            const result = await fetch(`http://quockhanh020924.id.vn:6868/updateproduct?_id=${id}`, data)
             const response = await result.json();
             return response
         } catch (error) {
