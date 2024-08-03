@@ -21,31 +21,41 @@ const InsertAndUpdate = (props) => {
   }
 
   const update =async () => {
-    const body = {
-      title: form.title,
-      manUpdated: 'phuc',
-      prototy: form.prototy
+    try {
+      const body = {
+        title: form.title,
+        manUpdated: 'phuc',
+        prototy: form.prototy
+      }
+  
+      const result = await CatalogApi.updatecatalog(body,formUpdate._id);
+      if (result.status) {
+        setshowPopup(false)
+      }
+      reload();
+    } catch (error) {
+      
     }
-
-    const result = await CatalogApi.updatecatalog(body,formUpdate._id);
-    if (result.status) {
-      setshowPopup(false)
-    }
-    reload();
+   
   } 
 
   const addCategory = async () => {
-    const body = {
-      title: form.title,
-      manUpdated: 'phuc',
-      prototy: form.prototy
+    try {
+      const body = {
+        title: form.title,
+        manUpdated: 'phuc',
+        prototy: form.prototy
+      }
+  
+      const result = await CatalogApi.addCatalog(body);
+      if (result.status) {
+        setshowPopup(false)
+      }
+      reload();
+    } catch (error) {
+      
     }
-
-    const result = await CatalogApi.addCatalog(body);
-    if (result.status) {
-      setshowPopup(false)
-    }
-    reload();
+    
   }
 
 

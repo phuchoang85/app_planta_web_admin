@@ -19,15 +19,20 @@ const Login = () => {
     })
 
     const luu = async() => {
-        const result = await UseApi.login(formlogin);
-        if(result.status){
-            const userInfo = { ...formlogin }
-            console.log(result.data)
-            saveUserInfoToLocalStorage(result.data);
-            window.location.reload();
-        }else{
-            console.log("lỗi")
+        try {
+            const result = await UseApi.login(formlogin);
+            if(result.status){
+                const userInfo = { ...formlogin }
+                console.log(result.data)
+                saveUserInfoToLocalStorage(result.data);
+                window.location.reload();
+            }else{
+                console.log("lỗi")
+            }
+        } catch (error) {
+            
         }
+       
        
     }
 

@@ -10,10 +10,15 @@ const RenderProduct = (props) => {
     const [isExists, setisExists] = useState(item.isExist);
 
     const deleteProduct = async (id) => {
-        const result = await ProductApi.deleteProduct(id);
-        if (result.status) {
-            setisExists(!isExists);
+        try {
+            const result = await ProductApi.deleteProduct(id);
+            if (result.status) {
+                setisExists(!isExists);
+            }
+        } catch (error) {
+            
         }
+        
     }
 
 

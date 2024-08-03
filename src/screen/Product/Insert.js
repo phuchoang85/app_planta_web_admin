@@ -3,7 +3,6 @@ import {   Button } from "react-bootstrap";
 import CatalogApi from "../../api/CatalogApi";
 import './popup.css'
 import ProductApi from "../../api/ProductApi";
-import { Alert } from "bootstrap";
 
 const Insert = (props) => {
     const { setshowPopup, formUpdate, setformUpdate,reload } = props
@@ -33,45 +32,66 @@ const Insert = (props) => {
     }
 
     const getAllcatalog = async () => {
-        const result = await CatalogApi.getCatalog();
-        if (result.status) {
-            setcatalog(result.data)
-            if (!formUpdate.catalog) {
-                setform(prev => ({
-                    ...prev,
-                    catalog: result.data[0]
-                }))
-                setprototy(result.data[0].properties)
+        try {
+            const result = await CatalogApi.getCatalog();
+            if (result.status) {
+                setcatalog(result.data)
+                if (!formUpdate.catalog) {
+                    setform(prev => ({
+                        ...prev,
+                        catalog: result.data[0]
+                    }))
+                    setprototy(result.data[0].properties)
+                } else {
+                    const index = result.data.findIndex(ele => ele._id == formUpdate.catalog._id)
+                    setprototy(result.data[index].properties)
+                }
+    
             } else {
-                const index = result.data.findIndex(ele => ele._id == formUpdate.catalog._id)
-                setprototy(result.data[index].properties)
-            }
-
-        } else {
-
+    
+            }  
+        } catch (error) {
+            
         }
+        
     }
 
     const imageupload = () => {
         document.getElementById('image-upload').click();
     }
 
-    const uploadToCloundinary = async () => {
+
+
+    const uploadImage = async () => {
         try {
             const file = document.getElementById('image-upload').files[0];
-            const data = new FormData();
-            data.append('file', file);
-            data.append('upload_preset', 'ml_default');
-            const response = await
-                fetch('https://api.cloudinary.com/v1_1/dnodsjqql/image/upload', {
-                    method: 'POST',
-                    body: data
-                });
-            const result = await response.json();
-            setImages([...images, result.secure_url]);
+            const reader = new FileReader();
+    
+             reader.onloadend = () => {
+                const base64data = reader.result.split(',')[1]; // Lấy phần dữ liệu base64 sau dấu phẩy
+    
+                setImages([...images, "data:image/jpeg;base64,"+ base64data]);
+            };
+    
+            reader.readAsDataURL(file); // Đọc dữ liệu dưới dạng base64
         } catch (error) {
-   
+            console.error('Error uploading image:', error);
         }
+        // try {
+        //     const file = document.getElementById('image-upload').files[0];
+        //     const data = new FormData();
+        //     data.append('file', file);
+        //     data.append('upload_preset', 'ml_default');
+        //     const response = await
+        //         fetch('https://api.cloudinary.com/v1_1/dnodsjqql/image/upload', {
+        //             method: 'POST',
+        //             body: data
+        //         });
+        //     const result = await response.json();
+        //     setImages([...images, result.secure_url]);
+        // } catch (error) {
+   
+        // }
     }
 
     const removeImage = async (img) => {
@@ -80,6 +100,7 @@ const Insert = (props) => {
     }
 
     const submit = async () => {
+       try {
         const body = {
             ...form,
             img: images,
@@ -101,6 +122,9 @@ const Insert = (props) => {
         }
         setformUpdate({})
         reload();
+       } catch (error) {
+            window.alert("lỗi")
+       }
     }
 
     useEffect(() => {
@@ -223,7 +247,7 @@ const Insert = (props) => {
                                 images.map((item, index) => {
                                     return (
                                         <div key={index} className="image-container">
-                                            <img style={{ width: '100%', height: '100%' }} src={item.img || item} alt="" />
+                                            <img style={{ width: '100%', height: '100%' }} src={(item.img || item)} alt="" />
                                             <Button onClick={() => removeImage(item)} style={{ position: 'absolute', top: -15, right: -5 }}>x</Button>
                                         </div>
                                     )
@@ -232,7 +256,7 @@ const Insert = (props) => {
 
                             <Button className="image-container" onClick={imageupload}>
                                 <input type="file" className="form-control" id='image-upload'
-                                    onChange={uploadToCloundinary} style={{ display: 'none' }} />
+                                    onChange={uploadImage} style={{ display: 'none' }} />
                                 <img className="image-icon" src={'https://cdn-icons-png.flaticon.com/512/748/748113.png'} alt="" />
                             </Button>
                         </div>

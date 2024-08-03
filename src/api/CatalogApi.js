@@ -1,7 +1,9 @@
+import port from "./port";
+
 const CatalogApi = {
     getAllcatalog: async (limit, page) => {
         try {
-            const result = await fetch(`http://quockhanh020924.id.vn:6868/getadminCatalogAndPrototy?limit=${limit}&page=${page}`)
+            const result = await fetch(port+`getadminCatalogAndPrototy?limit=${limit}&page=${page}`)
             const response = await result.json();
             return response;
         } catch (error) {
@@ -10,7 +12,7 @@ const CatalogApi = {
     },
     deleteCatalog: async (id, admin) => {
         try {
-            const result = await fetch(`http://quockhanh020924.id.vn:6868/deleteCatalog?id=${id}&admin=${admin}`)
+            const result = await fetch(port+`deleteCatalog?id=${id}&admin=${admin}`)
             const response = await result.json();
             return response;
         } catch (error) {
@@ -27,7 +29,7 @@ const CatalogApi = {
                 body: JSON.stringify(body),
             }
 
-            const result = await fetch(`http://quockhanh020924.id.vn:6868/addcatalog`, option)
+            const result = await fetch(port+`addcatalog`, option)
             const response = await result.json();
             return response;
         } catch (error) {
@@ -44,7 +46,7 @@ const CatalogApi = {
                 body: JSON.stringify(body),
             }
 
-            const result = await fetch(`http://quockhanh020924.id.vn:6868/updatecatalog?_id=${id}`, option)
+            const result = await fetch(port+`updatecatalog?_id=${id}`, option)
             const response = await result.json();
             return response;
         } catch (error) {
@@ -53,7 +55,7 @@ const CatalogApi = {
     },
     getCatalog: async () => {
         try {
-            const result = await fetch(`http://quockhanh020924.id.vn:6868/getcatalog`)
+            const result = await fetch(port+`getcatalog`)
             const response = await result.json();
             return response;
         } catch (error) {

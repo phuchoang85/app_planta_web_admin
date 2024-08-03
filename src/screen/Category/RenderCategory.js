@@ -12,10 +12,15 @@ const RenderCategory = (props) => {
 
 
     const deleteCategory = async (id) =>{
-        const result = await CatalogApi.deleteCatalog(id,"phuc");
-        if(result.status){
-          setisExists(!isExists);
+        try {
+            const result = await CatalogApi.deleteCatalog(id,"phuc");
+            if(result.status){
+              setisExists(!isExists);
+            }
+        } catch (error) {
+            
         }
+       
     }
     return (
         <tr>

@@ -9,11 +9,16 @@ const Order = () => {
   const [page, setpage] = useState(1);
    
   const getAllOrrder = async (page) => {
-    const result = await OrderApi.getAllOrder(6, page);
-    if (result.status && result.data.length > 0) {
-        setpage(page)
-        setorder(result.data)
+    try {
+      const result = await OrderApi.getAllOrder(6, page);
+      if (result.status && result.data.length > 0) {
+          setpage(page)
+          setorder(result.data)
+      }
+    } catch (error) {
+      
     }
+ 
   }
 
   useEffect(() => {

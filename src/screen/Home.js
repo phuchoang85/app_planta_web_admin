@@ -62,17 +62,27 @@ const Home = () => {
 
 
   const getAllOrrder = async () => {
-    const result = await OrderApi.getAllOrder(null, null);
-    if (result.status && result.data.length > 0) {
-      xulyMang(result.data);
+    try {
+      const result = await OrderApi.getAllOrder(null, null);
+      if (result.status && result.data.length > 0) {
+        xulyMang(result.data);
+      }
+    } catch (error) {
+      
     }
+   
   }
 
   const getAllUser = async () => {
-    const result = await UseApi.getAllUser();
-    if (result.status && result.data.length > 0) {
-      xulyManguser(result.data);
+    try {
+      const result = await UseApi.getAllUser();
+      if (result.status && result.data.length > 0) {
+        xulyManguser(result.data);
+      }
+    } catch (error) {
+      
     }
+ 
   }
 
   const xulyMang = (mang) => {

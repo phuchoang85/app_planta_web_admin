@@ -11,7 +11,8 @@ const Category = () => {
   const [showPopup, setshowPopup] = useState(false)
 
   const getCategory =async ( page) =>{
-    const result =await CatalogApi.getAllcatalog(6, parseInt(page));
+    try {
+      const result =await CatalogApi.getAllcatalog(6, parseInt(page));
 
     if(result.status && result.data.length !=0){
       setpage(page);
@@ -19,6 +20,10 @@ const Category = () => {
     }else{
 
     }
+    } catch (error) {
+      
+    }
+    
   }
 
   useEffect(() =>{

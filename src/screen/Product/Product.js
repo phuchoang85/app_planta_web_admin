@@ -13,14 +13,19 @@ const Product = () => {
   const [formUpdate, setformUpdate] = useState({})
 
   const getProduct = async (page) => {
-    const result = await ProductApi.getAllproduct(6, page);
-    console.log(result)
-    if (result.status && result.data.length !== 0) {
-      setproduct(result.data);
-      setpage(page);
-    } else {
-
+    try {
+      const result = await ProductApi.getAllproduct(6, page);
+      console.log(result)
+      if (result.status && result.data.length !== 0) {
+        setproduct(result.data);
+        setpage(page);
+      } else {
+  
+      }
+    } catch (error) {
+      
     }
+   
   }
 
   useEffect(() => {

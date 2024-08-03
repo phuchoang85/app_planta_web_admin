@@ -13,14 +13,19 @@ const RenderOrder = (props) => {
     const nextStatus = async (status) => {
 
         if (status == 3) {
-            console.log('hết trạng thái')
+            window.alert("hết trạng thái")
         } else {
-            const result = await OrderApi.updateStatusOrrder(status, item._id);
+            try {
+                const result = await OrderApi.updateStatusOrrder(status, item._id);
             if (result.status) {
                 reload();
             } else {
                 console.log('lỗi')
             }
+            } catch (error) {
+                
+            }
+            
         }
 
 
